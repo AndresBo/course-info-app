@@ -6,15 +6,17 @@ const Header = ({course}) => {
 
 const Content = ({parts}) => {
   const listParts = parts.map(part => <p>{part.name} {part.exercises}</p>)
-  
+
   return (
     <div>{listParts}</div>
   )
 }
 
-const Total = ({total}) => {
+const Total = ({parts}) => {
+  
+  const totalExercises = parts[0].exercises + parts[1].exercises + parts[2].exercises; 
   return (
-    <p>Number of exercises {total}</p>
+    <p>Number of exercises {totalExercises}</p>
   )
 }
 

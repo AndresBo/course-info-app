@@ -1,5 +1,6 @@
 import Note from "./components/Note"
 import { useState } from "react"
+import { nanoid } from "nanoid"
 
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
@@ -7,7 +8,13 @@ const App = (props) => {
 
   const addNote = (event) => {
     event.preventDefault()
-    console.log('button clicked', event.target)
+    const noteObject = {
+      content: newNote,
+      important: Math.random() < 0.5,
+      id: nanoid()
+    }
+    setNotes(notes.concat(noteObject))
+    setNewNote('')
   }
 
   const handleNoteChange = (event) => {

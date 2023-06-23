@@ -9,7 +9,7 @@ const App = (props) => {
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
-    console.log('use effect')
+    console.log('hi from useEffect')
     axios
       .get('http://localhost:3001/notes')
       .then(response => {
@@ -17,7 +17,7 @@ const App = (props) => {
         setNotes(response.data)
       })
   },[])
-  console.log('render', notes.length, 'notes')
+  //console.log('render', notes.length, 'notes')
 
   const addNote = (event) => {
     event.preventDefault()
@@ -26,8 +26,12 @@ const App = (props) => {
       important: Math.random() < 0.5,
       id: nanoid()
     }
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+    axios 
+      .post('http://localhost:3001/notes', noteObject)
+      .then(response => {
+        setNotes(notes.concat(response.data))
+        setNewNote('')
+      })
   }
 
   const handleNoteChange = (event) => {

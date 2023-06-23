@@ -43,7 +43,21 @@ const App = (props) => {
   const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
   const toggleImportanceOf = (id) => {
-    console.log(`importance of ${id} needs to be toggled`)
+    // define unique URL for each note using id
+    const url = `http://localhost:3001/notes/${id}`
+    // find the note we want to modify and assign to note variable
+    const note = notes.find(note => note.id === id)
+    // create a new changedNote object, copying old note except important property, which is flipped. 
+    // note that doing it this way we AVOID MUTATING the notes component state. Note that changedNote is
+    // a shallow copy = if the value is a primitive, its copied to new object. But if value is an object, the
+    // reference is copied so its shared between the copy and the original.  
+    const changedNote = { ...note, important: !note.important }
+    // send new object with a PUT request to the backend where it replaces original object.
+    // with map method we create a new array with all original notes, expect the one to be replaced:
+    axios.put(url, changedNote)
+         .then(response => {
+            setNotes(notes.map(note => note.id !== id? note : response.data))
+         })
   }
   
   return (

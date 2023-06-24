@@ -22,12 +22,12 @@
     },
     {
       "content": "Async means asynchronous",
-      "important": false,
+      "important": true,
       "id": "6NH80utHs5HEl8-JhOFSH"
     },
     {
       "content": "Always keep developers tan open",
-      "important": false,
+      "important": true,
       "id": "W8ECukUDnJwWMmtFNoMok"
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "content": "Fulls stack is hard",
-      "important": false,
+      "important": true,
       "id": "OygKDftNJujRmzs2APBYA"
     }
   ]

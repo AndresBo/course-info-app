@@ -1,7 +1,9 @@
-import Note from "./components/Note"
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
 import axios from "axios"
+import Note from "./components/Note"
+import noteService from './services/notes'
+
 
 const App = (props) => {
   const [notes, setNotes] = useState([])
@@ -10,11 +12,11 @@ const App = (props) => {
 
   // useEffect fetched data from bd at first render:
   useEffect(() => {
-    console.log('hi from useEffect')
-    axios
-      .get('http://localhost:3001/notes')
+    noteService
+      .getAll()
+      
       .then(response => {
-        console.log('promise fullfilled')
+        console.log(response)
         setNotes(response.data)
       })
   },[])
@@ -27,8 +29,8 @@ const App = (props) => {
       important: Math.random() < 0.5,
       id: nanoid()
     }
-    axios 
-      .post('http://localhost:3001/notes', noteObject)
+    noteService 
+      .create(noteObject)
       .then(response => {
         setNotes(notes.concat(response.data))
         setNewNote('')
@@ -42,9 +44,7 @@ const App = (props) => {
 
   const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
-  const toggleImportanceOf = (id) => {
-    // define unique URL for each note using id
-    const url = `http://localhost:3001/notes/${id}`
+  const toggleImportanceOf = id => {
     // find the note we want to modify and assign to note variable
     const note = notes.find(note => note.id === id)
     // create a new changedNote object, copying old note except important property, which is flipped. 
@@ -54,10 +54,11 @@ const App = (props) => {
     const changedNote = { ...note, important: !note.important }
     // send new object with a PUT request to the backend where it replaces original object.
     // with map method we create a new array with all original notes, expect the one to be replaced:
-    axios.put(url, changedNote)
-         .then(response => {
-            setNotes(notes.map(note => note.id !== id? note : response.data))
-         })
+    noteService
+      .update(id, changedNote)
+      .then(response => {
+        setNotes(notes.map(note => note.id !== id? note : response.data))
+      })
   }
   
   return (

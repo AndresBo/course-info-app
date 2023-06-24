@@ -3,12 +3,12 @@
     {
       "id": 1,
       "content": "HTML is easy",
-      "important": true
+      "important": false
     },
     {
       "id": 2,
       "content": "Browser can execute only JavaScript",
-      "important": true
+      "important": false
     },
     {
       "id": 3,
@@ -17,7 +17,7 @@
     },
     {
       "content": "Axios handles HTTP methods",
-      "important": false,
+      "important": true,
       "id": "2QcIBSqYghOIQ_n6G02Sq"
     },
     {
@@ -29,6 +29,16 @@
       "content": "Always keep developers tan open",
       "important": false,
       "id": "W8ECukUDnJwWMmtFNoMok"
+    },
+    {
+      "content": "Be patient",
+      "important": false,
+      "id": "XDLP3Ogou3M7-GeqpxnFg"
+    },
+    {
+      "content": "Be super patient",
+      "important": false,
+      "id": "EOVN4ta8ps-KxUo7Xi_HK"
     }
   ]
 }

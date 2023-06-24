@@ -14,10 +14,8 @@ const App = (props) => {
   useEffect(() => {
     noteService
       .getAll()
-      
-      .then(response => {
-        console.log(response)
-        setNotes(response.data)
+      .then(initialNotes => {
+        setNotes(initialNotes)
       })
   },[])
   //console.log('render', notes.length, 'notes')
@@ -31,8 +29,8 @@ const App = (props) => {
     }
     noteService 
       .create(noteObject)
-      .then(response => {
-        setNotes(notes.concat(response.data))
+      .then(returnedNote => {
+        setNotes(notes.concat(returnedNote))
         setNewNote('')
       })
   }
@@ -56,8 +54,8 @@ const App = (props) => {
     // with map method we create a new array with all original notes, expect the one to be replaced:
     noteService
       .update(id, changedNote)
-      .then(response => {
-        setNotes(notes.map(note => note.id !== id? note : response.data))
+      .then(returnedNote => {
+        setNotes(notes.map(note => note.id !== id? note : returnedNote))
       })
   }
   

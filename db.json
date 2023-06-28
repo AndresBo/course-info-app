@@ -17,7 +17,7 @@
     },
     {
       "content": "Axios handles HTTP methods",
-      "important": true,
+      "important": false,
       "id": "2QcIBSqYghOIQ_n6G02Sq"
     },
     {
@@ -39,11 +39,6 @@
       "content": "Be super patient",
       "important": false,
       "id": "EOVN4ta8ps-KxUo7Xi_HK"
-    },
-    {
-      "content": "Fulls stack is hard",
-      "important": true,
-      "id": "OygKDftNJujRmzs2APBYA"
     }
   ]
 }

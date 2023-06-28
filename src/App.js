@@ -10,7 +10,7 @@ const App = (props) => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('some error happened...')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   // useEffect fetched data from bd at first render:
   useEffect(() => {
@@ -59,8 +59,13 @@ const App = (props) => {
       .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id? note : returnedNote))
       })
+      // when an error occurs add a descriptive error message to errorMessage state. and set a timer to
+      // set errorMessage state to null after 5 seconds
       .catch(error => {
-        alert(`the note ${note.content} was already deleted`)
+        setErrorMessage(`Note '${note.content}' was already removed from server`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
         setNotes(notes.filter(note => note.id !== id))
       })
   }

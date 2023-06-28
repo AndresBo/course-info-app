@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
-import axios from "axios"
 import Note from "./components/Note"
 import noteService from './services/notes'
+import './index.css'
 
 
 const App = (props) => {

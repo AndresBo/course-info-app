@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { nanoid } from "nanoid"
 import Note from "./components/Note"
 import noteService from './services/notes'
+import Notification from "./components/Notification"
 import './index.css'
 
 
@@ -9,6 +10,7 @@ const App = (props) => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   // useEffect fetched data from bd at first render:
   useEffect(() => {
@@ -66,6 +68,7 @@ const App = (props) => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all'}

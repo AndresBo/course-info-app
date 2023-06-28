@@ -8,4 +8,4 @@ const Note = ({ note, toggleImportance }) => {
   )
 }
   
-  export default Note
+export default Note

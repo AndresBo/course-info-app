@@ -7,12 +7,12 @@ import './index.css'
 
 
 const App = (props) => {
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
-  // useEffect fetched data from bd at first render:
+  // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
   useEffect(() => {
     noteService
       .getAll()
@@ -20,7 +20,10 @@ const App = (props) => {
         setNotes(initialNotes)
       })
   },[])
-  //console.log('render', notes.length, 'notes')
+  // if notes is null (like in the first render), don't render anything
+  if (!notes) {
+    return null
+  }
 
   const addNote = (event) => {
     event.preventDefault()

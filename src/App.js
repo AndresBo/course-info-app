@@ -20,7 +20,8 @@ const App = (props) => {
         setNotes(initialNotes)
       })
   },[])
-  // if notes is null (like in the first render), don't render anything
+
+  // if notes is null (like in the first render), don't render anything/skip rest
   if (!notes) {
     return null
   }

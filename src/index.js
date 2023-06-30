@@ -1,8 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { nanoid } from 'nanoid'
-import axios from 'axios'
-
 import App from './App'
 
 // const promise = axios.get('http://localhost:3001/notes')

@@ -1,5 +1,6 @@
 # Note taking app
 
-live [here](https://express-notes-app-backend.onrender.com/)
-- changing importance of note does not work yet.
+Live [here](https://express-notes-app-backend.onrender.com/)
+
+Built using React, Express and MongoDB.
 

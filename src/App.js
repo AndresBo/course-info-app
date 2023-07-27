@@ -6,13 +6,17 @@ import Notification from "./components/Notification"
 import './index.css'
 
 
-const App = (props) => {
+const App = () => {
   const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
+  // as the body of the function defining the component is executed and rendered first. Then axios.get initiates 
+  // the fetching and setting notes. 
   useEffect(() => {
     noteService
       .getAll()

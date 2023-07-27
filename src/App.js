@@ -27,6 +27,15 @@ const App = () => {
       })
   },[])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      noteService.setToken(user.token)
+    }
+  },[])
+
   // if notes is null (like in the first render), don't render anything/skip rest
   if (!notes) {
     return null

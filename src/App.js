@@ -87,6 +87,8 @@ const App = () => {
       const user = await loginService.login({
         username, password
       })
+      // save logged in user details to local storage
+      window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
       // call method that set the token for future request by the logged in user
       noteService.setToken(user.token)
       // on sucess, save server response (token, user details) to user field of the app state

@@ -3,6 +3,7 @@ import { nanoid } from "nanoid"
 import Note from "./components/Note"
 import noteService from './services/notes'
 import Notification from "./components/Notification"
+import loginService from './services/login'
 import './index.css'
 
 
@@ -13,6 +14,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
   // as the body of the function defining the component is executed and rendered first. Then axios.get initiates 
@@ -77,11 +79,75 @@ const App = () => {
         setNotes(notes.filter(note => note.id !== id))
       })
   }
+  // sends HTTP POST request to server address 'api/login'
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await loginService.login({
+        username, password
+      })
+      // call method that set the token for future request by the logged in user
+      noteService.setToken(user.token)
+      // on sucess, save server response (token, user details) to user field of the app state
+      setUser(user)
+      setUsername('')
+      setPassword('')
+    } catch(exception) {
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
+  const loginForm = () => (
+    <form onSubmit={handleLogin}>
+        <div>
+          username
+            <input
+              type='text'
+              value={username}
+              name='Username'
+              // event handler takes object that triggered event, and destructure target from the object and saves value to state
+              onChange={({ target }) => setUsername(target.value)}
+            />
+        </div>
+        <div>
+          password
+            <input
+              type='password'
+              value={password}
+              name='Password'
+              onChange={({ target }) => setPassword(target.value)}
+            />
+        </div>
+        <button type='submit'>login</button>
+      </form>
+  )
+
+  const noteForm = () => (
+    <form onSubmit={addNote}>
+      <input
+        value={newNote}
+        onChange={handleNoteChange}
+      />
+      <button type='submit'>save</button>
+    </form>
+  )
   
   return (
     <div>
       <h1>Notes</h1>
       <Notification message={errorMessage} />
+
+      {!user && loginForm()}
+      {user && <div>
+          <p>{user.name} logged in</p>
+            {noteForm()}
+        </div>  
+        }
+    
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all'}
@@ -95,11 +161,7 @@ const App = () => {
             toggleImportance={() => toggleImportanceOf(note.id)}
           />
         )}
-      </ul>
-      <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange}/>
-        <button type='submit'>save</button>
-      </form>
+      </ul>   
     </div>
     )
 }

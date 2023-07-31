@@ -5,13 +5,17 @@ import noteService from './services/notes'
 import Notification from "./components/Notification"
 import loginService from './services/login'
 import LoginForm from "./components/LoginForm"
+import Toggable from "./components/Toggable"
+
 import './index.css'
+import NoteForm from "./components/NoteForm"
 
 const App = () => {
   const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -155,10 +159,21 @@ const App = () => {
       <h1>Notes</h1>
       <Notification message={errorMessage} />
 
-      {!user && loginForm()}
+      {!user && 
+        <Toggable buttonLabel='log in'>
+          <LoginForm
+            username={username}
+            password={password}
+            handleUsernameChange={({ target }) => setUsername(target.value)}
+            handlePasswordChange={({ target }) => setPassword(target.value)}
+            handleSubmit={handleLogin}
+          />
+        </Toggable>}
       {user && <div>
           <p>{user.name} logged in</p>
-            {noteForm()}
+          <Toggable buttonLabel="new note">
+            <NoteForm createNote={addNote} />
+          </Toggable>
         </div>  
         }
     

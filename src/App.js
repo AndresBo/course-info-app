@@ -4,8 +4,8 @@ import Note from "./components/Note"
 import noteService from './services/notes'
 import Notification from "./components/Notification"
 import loginService from './services/login'
+import LoginForm from "./components/LoginForm"
 import './index.css'
-
 
 const App = () => {
   const [notes, setNotes] = useState(null)
@@ -15,6 +15,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [loginVisible, setLoginVisible] = useState(false)
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
   // as the body of the function defining the component is executed and rendered first. Then axios.get initiates 
@@ -111,31 +112,33 @@ const App = () => {
       }, 5000)
     }
   }
+  // loginVisible state is toogled by two buttons below.
+  // The visibility of two components below is defined by using inline style rule with a
+  // value display 'none' if we don't wish to display the component.
+  const loginForm = () => {
+    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+    const showWhenVisible = { display: loginVisible ? '' : 'none' }
 
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-        <div>
-          username
-            <input
-              type='text'
-              value={username}
-              name='Username'
-              // event handler takes object that triggered event, and destructure target from the object and saves value to state
-              onChange={({ target }) => setUsername(target.value)}
-            />
+    return (
+      <div>
+        <div style={hideWhenVisible}>
+          <button onClick={() => setLoginVisible(true)}>Log in</button>
         </div>
-        <div>
-          password
-            <input
-              type='password'
-              value={password}
-              name='Password'
-              onChange={({ target }) => setPassword(target.value)}
-            />
+        <div style={showWhenVisible}>
+          <LoginForm
+            username={username}
+            password={password}
+            handleUsernameChange={({ target }) => setUsername(target.value)}
+            handlePasswordChange={({ target }) => setPassword(target.value)}
+            handleSubmit={handleLogin}
+          />
         </div>
-        <button type='submit'>login</button>
-      </form>
-  )
+        <button onClick={() => setLoginVisible(false)}>cancel</button>
+      </div>
+    )
+  }
+   
+  
 
   const noteForm = () => (
     <form onSubmit={addNote}>

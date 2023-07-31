@@ -12,14 +12,12 @@ import NoteForm from "./components/NoteForm"
 
 const App = () => {
   const [notes, setNotes] = useState(null)
-  const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [loginVisible, setLoginVisible] = useState(false)
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
   // as the body of the function defining the component is executed and rendered first. Then axios.get initiates 
@@ -46,26 +44,14 @@ const App = () => {
     return null
   }
 
-  const addNote = (event) => {
-    event.preventDefault()
-    const noteObject = {
-      content: newNote,
-      important: Math.random() < 0.5,
-      id: nanoid()
-    }
-    noteService 
+  const addNote = (noteObject) => {
+    noteService
       .create(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
-        setNewNote('')
       })
   }
-
-  const handleNoteChange = (event) => {
-    console.log(event.target.value)
-    setNewNote(event.target.value)
-  }
-
+  
   const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
   const toggleImportanceOf = id => {
@@ -93,6 +79,7 @@ const App = () => {
         setNotes(notes.filter(note => note.id !== id))
       })
   }
+
   // sends HTTP POST request to server address 'api/login'
   const handleLogin = async (event) => {
     event.preventDefault()

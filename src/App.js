@@ -14,9 +14,6 @@ const App = () => {
   const [notes, setNotes] = useState(null)
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
@@ -81,9 +78,7 @@ const App = () => {
   }
 
   // sends HTTP POST request to server address 'api/login'
-  const handleLogin = async (event) => {
-    event.preventDefault()
-
+  const handleLogin = async (username, password) => {
     try {
       const user = await loginService.login({
         username, password
@@ -94,8 +89,7 @@ const App = () => {
       noteService.setToken(user.token)
       // on sucess, save server response (token, user details) to user field of the app state
       setUser(user)
-      setUsername('')
-      setPassword('')
+      
     } catch(exception) {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
@@ -112,10 +106,6 @@ const App = () => {
       {!user && 
         <Toggable buttonLabel='log in'>
           <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
             handleSubmit={handleLogin}
           />
         </Toggable>}

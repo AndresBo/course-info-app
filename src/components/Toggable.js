@@ -7,7 +7,7 @@ import { useState } from "react"
 // </Toggable> to allow child components inside.
 const Toggable = (props) => {
   const [visible, setVisible] = useState(false)
-
+  // display css to determine visibility
   const hideWhenVisible = { display: visible? 'none' : '' }
   const showWhenVisible = { display: visible? '' : 'none' }
 

@@ -116,44 +116,7 @@ const App = () => {
       }, 5000)
     }
   }
-  // loginVisible state is toogled by two buttons below.
-  // The visibility of two components below is defined by using inline style rule with a
-  // value display 'none' if we don't wish to display the component.
-  const loginForm = () => {
-    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
-    const showWhenVisible = { display: loginVisible ? '' : 'none' }
 
-    return (
-      <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>Log in</button>
-        </div>
-        <div style={showWhenVisible}>
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-        </div>
-        <button onClick={() => setLoginVisible(false)}>cancel</button>
-      </div>
-    )
-  }
-   
-  
-
-  const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input
-        value={newNote}
-        onChange={handleNoteChange}
-      />
-      <button type='submit'>save</button>
-    </form>
-  )
-  
   return (
     <div>
       <h1>Notes</h1>

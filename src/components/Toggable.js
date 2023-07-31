@@ -21,7 +21,7 @@ const Toggable = (props) => {
       <div>
         <div style={showWhenVisible}>
           {props.children}
-          <button onClick={toogleVisibility}>calce</button>
+          <button onClick={toogleVisibility}>cancel</button>
         </div>
       </div>
     </div>

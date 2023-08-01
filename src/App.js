@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react"
-import { nanoid } from "nanoid"
+import { useState, useEffect, useRef } from "react"
 import Note from "./components/Note"
 import noteService from './services/notes'
 import Notification from "./components/Notification"
@@ -15,6 +14,10 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
+
+  // Create new ref and assign it to Toggable component wrapping NoteForm. noteFormRef acts as
+  // a reference  
+  const noteFormRef = useRef()
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
   // as the body of the function defining the component is executed and rendered first. Then axios.get initiates 
@@ -42,13 +45,14 @@ const App = () => {
   }
 
   const addNote = (noteObject) => {
+    noteFormRef.current.toogleVisibility()
     noteService
       .create(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
       })
   }
-  
+ 
   const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
   const toggleImportanceOf = id => {
@@ -111,7 +115,7 @@ const App = () => {
         </Toggable>}
       {user && <div>
           <p>{user.name} logged in</p>
-          <Toggable buttonLabel="new note">
+          <Toggable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm createNote={addNote} />
           </Toggable>
         </div>  

@@ -1,4 +1,5 @@
 import { useState, forwardRef, useImperativeHandle } from "react"
+import PropTypes from 'prop-types'
 
 // Note how this component is used to wrap a 'child' component, defined
 // by {props.children} and give them visibility toogling functionality. 
@@ -35,5 +36,10 @@ const Toggable = forwardRef((props, refs) => {
     </div>
   )
 })
+
+// enforce button text must be given a value:
+Toggable.propTypes = {
+  buttonLabel: PropTypes.string.isRequired
+}
 
 export default Toggable

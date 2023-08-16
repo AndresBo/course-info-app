@@ -4,7 +4,7 @@ import { useState, forwardRef, useImperativeHandle } from "react"
 // by {props.children} and give them visibility toogling functionality. 
 // Note child components are always added by React. If a component is defined like this: <Note ... />, 
 // props.children is an empty array. Toggable will use opening AND closing tags: <Toggable> ..
-// </Toggable> to allow child components inside.
+// </Toggable>, this allows child components inside.
 
 // Note forwardRef that allows the component to access the ref assigned. 
 const Toggable = forwardRef((props, refs) => {
@@ -27,7 +27,7 @@ const Toggable = forwardRef((props, refs) => {
         <button onClick={toogleVisibility}>{props.buttonLabel}</button>
       </div>
       <div>
-        <div style={showWhenVisible}>
+        <div style={showWhenVisible} className="toggableContent">
           {props.children}
           <button onClick={toogleVisibility}>cancel</button>
         </div>

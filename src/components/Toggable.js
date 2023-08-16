@@ -1,13 +1,13 @@
-import { useState, forwardRef, useImperativeHandle } from "react"
+import { useState, forwardRef, useImperativeHandle } from 'react'
 import PropTypes from 'prop-types'
 
 // Note how this component is used to wrap a 'child' component, defined
-// by {props.children} and give them visibility toogling functionality. 
-// Note child components are always added by React. If a component is defined like this: <Note ... />, 
+// by {props.children} and give them visibility toogling functionality.
+// Note child components are always added by React. If a component is defined like this: <Note ... />,
 // props.children is an empty array. Toggable will use opening AND closing tags: <Toggable> ..
 // </Toggable>, this allows child components inside.
 
-// Note forwardRef that allows the component to access the ref assigned. 
+// Note forwardRef that allows the component to access the ref assigned.
 const Toggable = forwardRef((props, refs) => {
   const [visible, setVisible] = useState(false)
   // inline display css to determine visibility
@@ -19,7 +19,7 @@ const Toggable = forwardRef((props, refs) => {
   // this component. This means we can use noteFormRef.current.toggleVisibility() from outside the component, to
   // trigger toogleVisibility()
   useImperativeHandle(refs, () => {
-    return {toogleVisibility}
+    return { toogleVisibility }
   })
 
   return (
@@ -41,5 +41,9 @@ const Toggable = forwardRef((props, refs) => {
 Toggable.propTypes = {
   buttonLabel: PropTypes.string.isRequired
 }
+
+// give display name to Toggable
+Toggable.displayName = 'Toggable'
+
 
 export default Toggable

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^6.0.0",
     "axios": "^1.4.0",
+    "jest-environment-jsdom": "^29.6.2",
     "nanoid": "^4.0.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -42,7 +44,9 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "eslint-plugin-jest": "^27.2.3",
+    "jest": "^29.6.2",
     "json-server": "^0.17.3"
   },
   "proxy": "http://localhost:3001"

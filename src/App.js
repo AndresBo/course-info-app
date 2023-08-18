@@ -72,7 +72,7 @@ const App = () => {
       })
       // when an error occurs add a descriptive error message to errorMessage state. and set a timer to
       // set errorMessage state to null after 5 seconds
-      .catch(error => {
+      .catch( () => {
         setErrorMessage(`Note '${note.content}' was already removed from server`)
         setTimeout(() => {
           setErrorMessage(null)

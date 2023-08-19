@@ -16,7 +16,7 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   // Create new ref and assign it to Toggable component wrapping NoteForm. noteFormRef acts as
-  // a reference
+  // a reference to Toggable component.
   const noteFormRef = useRef()
 
   // useEffect fetches data from bd at first render. Well, actually the effect gets data after the first render
@@ -44,6 +44,7 @@ const App = () => {
     return null
   }
 
+  // note ref noteFormRef that has access to function toogleVisibility, inside of the Toggable component.
   const addNote = (noteObject) => {
     noteFormRef.current.toogleVisibility()
     noteService

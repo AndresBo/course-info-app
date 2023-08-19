@@ -42,7 +42,7 @@ Toggable.propTypes = {
   buttonLabel: PropTypes.string.isRequired
 }
 
-// give display name to Toggable
+// give display name to Toggable - the one that shows in dev console, react components
 Toggable.displayName = 'Toggable'
 
 

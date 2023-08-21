@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import NoteForm from '../components/NoteForm'
 import userEvent from '@testing-library/user-event'
-import { TestEnvironment } from 'jest-environment-jsdom'
+
 
 test('<NoteForm /> updates parent state and calls onSubmit', async () => {
   // mock function for the event handler
@@ -13,7 +13,7 @@ test('<NoteForm /> updates parent state and calls onSubmit', async () => {
 
   render(<NoteForm createNote={createNote} />)
 
-  const input = screen.getByRole('textbox')
+  const input = screen.getByPlaceholderText('new note content')
   const sendButton = screen.getByText('save')
   // method 'type' of userEvent used to write to the input field
   await user.type(input, 'testing a form...')

@@ -25,12 +25,8 @@ describe('Note app', function() {
   })
 
   describe('when logged in', function () {
-    beforeEach(function () {
-      cy.visit('http://localhost:3000')
-      cy.contains('log in').click()
-      cy.get('#username').type('admin')
-      cy.get('#password').type('password')
-      cy.get('#login-button').click()
+    beforeEach(function() {
+      cy.login({ username: 'admin', password: 'password'})
     })
 
     it('a new note can be created', function () {
@@ -40,7 +36,7 @@ describe('Note app', function() {
       cy.contains('a note created by cypress')
     })
 
-    describe('and a note exists', function() {
+    describe('an existing note', function() {
       beforeEach(function() {
         cy.contains('new note').click()
         cy.get('input').type('another note cypress')

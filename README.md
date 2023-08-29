@@ -8,5 +8,5 @@ This repository contains the code for the frontend. See the backend [here](https
 
 The backend was deployed using Render.com.
 
-The backend contains a copy of the production build of our react application. The backend shows the main page of the production build. 
+The backend contains a copy of the production build of the react application. The backend shows the main page of the production build. 
 

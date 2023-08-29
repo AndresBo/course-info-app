@@ -32,3 +32,16 @@ Cypress.Commands.add('login', ({ username, password }) => {
     cy.visit('http://localhost:3000')
   })
 })
+
+// this command expects user to be logged in and user details to be saved to localStorage
+Cypress.Commands.add('createNote', ({ content, important }) => {
+  cy.request({
+    url:'http://localhost:3001/api/notes',
+    method: 'POST',
+    body: { content, important },
+    headers: {
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedNoteappUser')).token}`
+    }
+  })
+  cy.visit('http://localhost:3000')
+})
